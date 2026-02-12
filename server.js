@@ -14,6 +14,6 @@ app.get("/health", (req, res) => {
   res.json({ status: "UP" });
 });
 
-app.listen(8080, () => {
-  console.log("Server running on port 8080");
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });

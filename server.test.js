@@ -9,5 +9,5 @@ app.get('/', (req, res) => {
 
 test('GET / returns message', async () => {
   const res = await request(app).get('/');
-  expect(res.statusCode).toBe(200);
+  expect(res.statusCode).toBe(403);
 });

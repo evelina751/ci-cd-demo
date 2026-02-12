@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         PATH = "/opt/homebrew/bin:${env.PATH}"
-        IMAGE = "ci-cd-demo:latest"
+        IMAGE = "ghcr.io/evelina751/ci-cd-demo:latest"
     }
 
     stages {
@@ -23,6 +23,24 @@ pipeline {
         stage('Build Image') {
             steps {
                 sh 'podman build -t $IMAGE .'
+            }
+        }
+
+        stage('Push Image') {
+            when {
+                branch 'main'
+            }
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'ghcr-creds',
+                    usernameVariable: 'USER',
+                    passwordVariable: 'PASS'
+                )]) {
+                    sh '''
+                    echo $PASS | podman login ghcr.io -u $USER --password-stdin
+                    podman push $IMAGE
+                    '''
+                }
             }
         }
 

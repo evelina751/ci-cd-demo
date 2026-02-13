@@ -5,7 +5,7 @@ const VERSION = "1.0.0";
 
 app.get("/", (req, res) => {
   res.json({
-    message: "CI/CD Demo Running 🚀",
+    message: "CI/CD Demo Running! 🚀",
     version: VERSION,
   });
 });
